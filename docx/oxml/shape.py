@@ -12,7 +12,7 @@ from .simpletypes import (
 )
 from .xmlchemy import (
     BaseOxmlElement, OneAndOnlyOne, OptionalAttribute, RequiredAttribute,
-    ZeroOrOne
+    ZeroOrOne, ZeroOrMore
 )
 
 
@@ -32,6 +32,14 @@ class CT_BlipFillProperties(BaseOxmlElement):
     blip = ZeroOrOne('a:blip', successors=(
         'a:srcRect', 'a:tile', 'a:stretch'
     ))
+
+
+class CT_DrawingObject(BaseOxmlElement):
+    """
+    ``<w:drawing>`` element, container for a Drawing object
+    """
+    anchor = ZeroOrMore('wp:anchor')
+    inline = ZeroOrMore('wp:inline')
 
 
 class CT_GraphicalObject(BaseOxmlElement):

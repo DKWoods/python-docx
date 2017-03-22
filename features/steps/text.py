@@ -246,6 +246,59 @@ def then_the_picture_appears_at_the_end_of_the_run(context):
     )
 
 
+@then('has_picture is {value}')
+def has_picture_is_value(context, value):
+    run = context.run
+    expected_value = {'True': True,
+                      'False': False}[value]
+    assert run.has_picture == expected_value
+
+
+@then("the picture's rId is {value}")
+def the_pictures_rId_is_value(context, value):
+    run = context.run
+    picture = run.picture_lst[0]
+    assert picture.rId == value
+
+
+@then("the picture's size is {width}, {height}")
+def the_pictures_size_is_width_height(context, width, height):
+    run = context.run
+    picture = run.picture_lst[0]
+    assert picture.width == int(width)
+    assert picture.original_width == int(width)
+    assert picture.height == int(height)
+    assert picture.original_height == int(height)
+
+
+@then("the picture's filename is {value}")
+def the_pictures_filename_is_value(context, value):
+    run = context.run
+    picture = run.picture_lst[0]
+    assert picture.filename == value
+
+
+@then("the picture's extension is {value}")
+def the_pictures_extension_is_value(context, value):
+    run = context.run
+    picture = run.picture_lst[0]
+    assert picture.extension == value
+
+
+@then("the picture's type is {value}")
+def the_pictures_type_is_value(context, value):
+    run = context.run
+    picture = run.picture_lst[0]
+    assert picture.image_type == value
+
+
+@then("the picture's image_data size is {value}")
+def the_pictures_image_data_size_is_value(context, value):
+    run = context.run
+    picture = run.picture_lst[0]
+    assert len(picture.image_data) == int(value)
+
+
 @then('the run appears in {boolean_prop_name} unconditionally')
 def then_run_appears_in_boolean_prop_name(context, boolean_prop_name):
     run = context.run

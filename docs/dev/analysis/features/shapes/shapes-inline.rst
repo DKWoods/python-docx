@@ -60,6 +60,12 @@ Spec references
 * 20.4.2.7 extent (Drawing Object Size)
 
 
+Word Behavior
+-------------
+
+In theory, a Run can contain multiple Drawings.  In practice, I have not found a way to create a Run with more than a single Drawing.
+
+
 Minimal XML
 -----------
 

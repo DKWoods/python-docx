@@ -24,6 +24,7 @@ class Run(Parented):
     def __init__(self, r, parent):
         super(Run, self).__init__(parent)
         self._r = self._element = self.element = r
+        self._picture_lst = []
 
     def add_break(self, break_type=WD_BREAK.LINE):
         """
@@ -108,6 +109,20 @@ class Run(Parented):
         return Font(self._element)
 
     @property
+    def has_picture(self):
+        """
+        The Run contains a Picture, an embedded image, as distinct from a
+        Chart or Word Art or other Drawing types that could exist.
+        """
+        result = False
+        for drawing in self.element.drawing_lst:
+            for inline in drawing.inline_lst:
+                if inline.graphic.graphicData.pic is not None:
+                    result = True
+                    break
+        return result
+
+    @property
     def italic(self):
         """
         Read/write tri-state value. When |True|, causes the text of the run
@@ -118,6 +133,24 @@ class Run(Parented):
     @italic.setter
     def italic(self, value):
         self.font.italic = value
+
+    @property
+    def picture_lst(self):
+        """
+        Read only.  This lists all Pictures contained in the CT_Drawing and
+        CT_Inline structures for the run.  It does not include charts or other
+        types of Drawing or Inline objects, only Pictures.
+        """
+        if self.has_picture:
+            self._picture_lst == []
+            for drawing in self.element.drawing_lst:
+                for inline in drawing.inline_lst:
+                    if inline.graphic.graphicData.pic is not None:
+                        self._picture_lst.append(_Picture(inline,
+                                                          self.part.rels))
+            return self._picture_lst
+        else:
+            return []
 
     @property
     def style(self):
@@ -189,3 +222,20 @@ class _Text(object):
     def __init__(self, t_elm):
         super(_Text, self).__init__()
         self._t = t_elm
+
+
+class _Picture(object):
+    """
+    Proxy object for assembling the necessary data to describe this Pictures.
+    This is a read-only object populated at creation time only.
+    """
+    def __init__(self, inline, rels):
+        self.rId = inline.graphic.graphicData.pic.blipFill.blip.embed
+        self.width = inline.graphic.graphicData.pic.spPr.cx
+        self.height = inline.graphic.graphicData.pic.spPr.cy
+        self.original_width = rels[self.rId]._target.image.width
+        self.original_height = rels[self.rId]._target.image.height
+        self.filename = rels[self.rId]._target.image.filename
+        self.image_type = rels[self.rId]._target.image.content_type
+        self.extension = rels[self.rId]._target.image.ext
+        self.image_data = rels[self.rId]._target.image.blob
