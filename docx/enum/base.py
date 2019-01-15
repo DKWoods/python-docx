@@ -60,7 +60,11 @@ class _DocsPageFormatter(object):
             cls_docstring = self._clsdict['__doc__']
         except KeyError:
             cls_docstring = ''
-        return textwrap.dedent(cls_docstring).strip()
+
+        try:
+            return textwrap.dedent(cls_docstring).strip()
+        except TypeError:
+            return cls_docstring
 
     def _member_def(self, member):
         """
@@ -189,9 +193,15 @@ class XmlEnumeration(Enumeration):
         *xml_val*.
         """
         if xml_val not in cls._xml_to_member:
-            raise InvalidXmlError(
-                "attribute value '%s' not valid for this type" % xml_val
-            )
+            # DKW: I have to import files with 'lineRule="exactly"' even
+            #      though the legal specification is 'lineRule="exact"'
+            if (xml_val == 'exactly') and ('exact' in cls._xml_to_member):
+                xml_val = 'exact'
+            else:
+
+                raise InvalidXmlError(
+                    "attribute value '%s' not valid for this type" % xml_val
+                )
         return cls._xml_to_member[xml_val]
 
     @classmethod
