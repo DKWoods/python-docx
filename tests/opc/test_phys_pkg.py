@@ -12,6 +12,7 @@ except ImportError:
     from StringIO import StringIO as BytesIO
 
 import hashlib
+import platform
 import pytest
 
 from zipfile import ZIP_DEFLATED, ZipFile
@@ -45,16 +46,25 @@ class DescribeDirPkgReader(object):
         pack_uri = PackURI('/word/document.xml')
         blob = dir_reader.blob_for(pack_uri)
         sha1 = hashlib.sha1(blob).hexdigest()
-        assert sha1 == '0e62d87ea74ea2b8088fd11ee97b42da9b4c77b0'
+        if platform.system() == 'Windows':
+            assert sha1 == 'b9b4a98bcac7c5a162825b60c3db7df11e02ac5f'
+        else:
+            assert sha1 == '0e62d87ea74ea2b8088fd11ee97b42da9b4c77b0'
 
     def it_can_get_the_content_types_xml(self, dir_reader):
         sha1 = hashlib.sha1(dir_reader.content_types_xml).hexdigest()
-        assert sha1 == '89aadbb12882dd3d7340cd47382dc2c73d75dd81'
+        if platform.system() == 'Windows':
+            assert sha1 == 'cd687f67fd6b5f526eedac77cf1deb21968d7245'
+        else:
+            assert sha1 == '89aadbb12882dd3d7340cd47382dc2c73d75dd81'
 
     def it_can_retrieve_the_rels_xml_for_a_source_uri(self, dir_reader):
         rels_xml = dir_reader.rels_xml_for(PACKAGE_URI)
         sha1 = hashlib.sha1(rels_xml).hexdigest()
-        assert sha1 == 'ebacdddb3e7843fdd54c2f00bc831551b26ac823'
+        if platform.system() == 'Windows':
+            assert sha1 == '90965123ed2c79af07a6963e7cfb50a6e2638565'
+        else:
+            assert sha1 == 'ebacdddb3e7843fdd54c2f00bc831551b26ac823'
 
     def it_returns_none_when_part_has_no_rels_xml(self, dir_reader):
         partname = PackURI('/ppt/viewProps.xml')

@@ -28,8 +28,8 @@ class DescribeStreamReader(object):
 
     def it_can_read_a_long(self, read_long_fixture):
         stream_rdr, offset, expected_int = read_long_fixture
-        l = stream_rdr.read_long(offset)
-        assert l == expected_int
+        strm = stream_rdr.read_long(offset)
+        assert strm == expected_int
 
     # fixtures -------------------------------------------------------
 
