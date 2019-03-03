@@ -231,11 +231,19 @@ class _Picture(object):
     """
     def __init__(self, inline, rels):
         self.rId = inline.graphic.graphicData.pic.blipFill.blip.embed
-        self.width = inline.graphic.graphicData.pic.spPr.cx
-        self.height = inline.graphic.graphicData.pic.spPr.cy
-        self.original_width = rels[self.rId]._target.image.width
-        self.original_height = rels[self.rId]._target.image.height
-        self.filename = rels[self.rId]._target.image.filename
         self.image_type = rels[self.rId]._target.image.content_type
+        # I haven't checked into it, but the standard mechanisms for pulling
+        # picture data are wrong for EMF images.
+        if self.image_type == 'image/x-emf':
+            self.width = rels[self.rId]._target.image.px_width
+            self.height = rels[self.rId]._target.image.px_height
+            self.original_width = rels[self.rId]._target.image.px_width
+            self.original_height = rels[self.rId]._target.image.px_height
+        else:
+            self.width = inline.graphic.graphicData.pic.spPr.cx
+            self.height = inline.graphic.graphicData.pic.spPr.cy
+            self.original_width = rels[self.rId]._target.image.width
+            self.original_height = rels[self.rId]._target.image.height
+        self.filename = rels[self.rId]._target.image.filename
         self.extension = rels[self.rId]._target.image.ext
         self.image_data = rels[self.rId]._target.image.blob

@@ -3,6 +3,16 @@
 Release History
 ---------------
 
+0.8.8-DKW (2019-02-28)
+++++++++++++++++++++++
+
+- Add support for reading EMF image files in the Picture information in Runs.
+
+0.8.7-DKW (2017-07-18)
+++++++++++++++++++++++
+
+- Add support for reading Picture information in Runs.
+
 0.8.6 (2016-06-22)
 ++++++++++++++++++
 
