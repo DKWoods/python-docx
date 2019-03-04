@@ -149,9 +149,84 @@ class RGBColor(tuple):
         """
         Return a new instance from an RGB color hex string like ``'3C2F80'``.
         """
-        r = int(rgb_hex_str[:2], 16)
-        g = int(rgb_hex_str[2:4], 16)
-        b = int(rgb_hex_str[4:], 16)
+        # Assume RGB value
+        try:
+            r = int(rgb_hex_str[:2], 16)
+            g = int(rgb_hex_str[2:4], 16)
+            b = int(rgb_hex_str[4:], 16)
+        # But if we don't get an RGB value, see if we get a named color
+        except ValueError:
+            # We will support named Highlight Colors.  I'm not aware of other
+            # color name definitions for DOCx
+            if rgb_hex_str.lower() == 'black':
+                r = 0x00
+                g = 0x00
+                b = 0x00
+            elif rgb_hex_str.lower() == 'blue':
+                r = 0x00
+                g = 0x00
+                b = 0xFF
+            elif rgb_hex_str.lower() == 'cyan':
+                r = 0x00
+                g = 0xFF
+                b = 0xFF
+            elif rgb_hex_str.lower() == 'darkblue':
+                r = 0x00
+                g = 0x00
+                b = 0x80
+            elif rgb_hex_str.lower() == 'darkcyan':
+                r = 0x00
+                g = 0x80
+                b = 0x80
+            elif rgb_hex_str.lower() == 'darkgreen':
+                r = 0x00
+                g = 0x80
+                b = 0x00
+            elif rgb_hex_str.lower() == 'darkgray':
+                r = 0x80
+                g = 0x80
+                b = 0x80
+            elif rgb_hex_str.lower() == 'darkmagenta':
+                r = 0x80
+                g = 0x00
+                b = 0x80
+            elif rgb_hex_str.lower() == 'darkred':
+                r = 0x80
+                g = 0x00
+                b = 0x00
+            elif rgb_hex_str.lower() == 'darkyellow':
+                r = 0x80
+                g = 0x80
+                b = 0x00
+            elif rgb_hex_str.lower() == 'green':
+                r = 0x00
+                g = 0xFF
+                b = 0x00
+            elif rgb_hex_str.lower() == 'lightgray':
+                r = 0xC0
+                g = 0xC0
+                b = 0xC0
+            elif rgb_hex_str.lower() == 'magenta':
+                r = 0xFF
+                g = 0x00
+                b = 0xFF
+            elif rgb_hex_str.lower() == 'red':
+                r = 0xFF
+                g = 0x00
+                b = 0x00
+            elif rgb_hex_str.lower() == 'white':
+                r = 0xFF
+                g = 0xFF
+                b = 0xFF
+            elif rgb_hex_str.lower() == 'yellow':
+                r = 0xFF
+                g = 0xFF
+                b = 0x00
+            # For all other names, return BLACK
+            else:
+                r = 0x00
+                g = 0x00
+                b = 0x00
         return cls(r, g, b)
 
 
