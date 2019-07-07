@@ -3,15 +3,51 @@
 Release History
 ---------------
 
+0.8.10 (2019-01-08)
++++++++++++++++++++
+
+- Revert use of expanded package directory for default.docx to work around setup.py
+  problem with filenames containing square brackets.
+
+
+0.8.9 (2019-01-08)
+++++++++++++++++++
+
+- Fix gap in MANIFEST.in that excluded default document template directory
+
+
 0.8.8-DKW (2019-02-28)
 ++++++++++++++++++++++
 
 - Add support for reading EMF image files in the Picture information in Runs.
 
+
+0.8.8 (2019-01-07)
+++++++++++++++++++
+
+- Add support for headers and footers
+
+
 0.8.7-DKW (2017-07-18)
 ++++++++++++++++++++++
 
 - Add support for reading Picture information in Runs.
+
+
+0.8.7 (2018-08-18)
+++++++++++++++++++
+
+- Add _Row.height_rule
+- Add _Row.height
+- Add _Cell.vertical_alignment
+- Fix #455: increment next_id, don't fill gaps
+- Add #375: import docx failure on --OO optimization
+- Add #254: remove default zoom percentage
+- Add #266: miscellaneous documentation fixes
+- Add #175: refine MANIFEST.ini
+- Add #168: Unicode error on core-props in Python 2
+
+>>>>>>> da75fcf01f7f322e846e2ac3e1936aedd766acc8
 
 0.8.6 (2016-06-22)
 ++++++++++++++++++
