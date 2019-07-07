@@ -3,6 +3,12 @@
 Release History
 ---------------
 
+0.0.10-DKW (2019-07)
+++++++++++++++++++++
+
+- Include hyperlink text (<w:t> element) but not full hyperlink functionality
+  in imported documents.
+
 0.8.10 (2019-01-08)
 +++++++++++++++++++
 

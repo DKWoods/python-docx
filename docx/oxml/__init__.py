@@ -18,6 +18,19 @@ oxml_parser = etree.XMLParser(remove_blank_text=True, resolve_entities=False)
 oxml_parser.set_element_class_lookup(element_class_lookup)
 
 
+def remove_hyperlink_tags(xml):
+    """ Allow hyperlink text to be included in an imported document, even though
+        full hyperlink functionality has not been implemented yet """
+    # Import python's regular expression module
+    import re
+    # Remove hyperlink close tags
+    xml = xml.replace("</w:hyperlink>", "")
+    # Remove hyperlink open tags
+    xml = re.sub('<w:hyperlink[^>]*>', "", xml)
+    # Return the edited XML
+    return xml
+
+
 def parse_xml(xml):
     """
     Return root lxml element obtained by parsing XML character string in
@@ -25,7 +38,7 @@ def parse_xml(xml):
     parser is used, so custom element classes are produced for elements in
     *xml* that have them.
     """
-    root_element = etree.fromstring(xml, oxml_parser)
+    root_element = etree.fromstring(remove_hyperlink_tags(xml), oxml_parser)
     return root_element
 
 
