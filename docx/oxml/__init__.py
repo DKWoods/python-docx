@@ -24,9 +24,9 @@ def remove_hyperlink_tags(xml):
     # Import python's regular expression module
     import re
     # Remove hyperlink close tags
-    xml = xml.replace("</w:hyperlink>", "")
+    xml = xml.replace(b"</w:hyperlink>", b"")
     # Remove hyperlink open tags
-    xml = re.sub('<w:hyperlink[^>]*>', "", xml)
+    xml = re.sub(b'<w:hyperlink[^>]*>', b"", xml)
     # Return the edited XML
     return xml
 
