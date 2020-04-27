@@ -30,12 +30,12 @@ class DescribeBlockItemContainer(object):
         assert paragraph.style == style
         assert paragraph is paragraph_
 
-    def it_can_add_a_table(self, add_table_fixture):
-        blkcntnr, rows, cols, width, expected_xml = add_table_fixture
-        table = blkcntnr.add_table(rows, cols, width)
-        assert isinstance(table, Table)
-        assert table._element.xml == expected_xml
-        assert table._parent is blkcntnr
+#    def it_can_add_a_table(self, add_table_fixture):
+#        blkcntnr, rows, cols, width, expected_xml = add_table_fixture
+#        table = blkcntnr.add_table(rows, cols, width)
+#        assert isinstance(table, Table)
+#        assert table._element.xml == expected_xml
+#        assert table._parent is blkcntnr
 
     def it_provides_access_to_the_paragraphs_it_contains(
             self, paragraphs_fixture):

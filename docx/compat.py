@@ -22,6 +22,8 @@ if sys.version_info >= (3, 0):
         return isinstance(obj, str)
 
     Unicode = str
+    basestring = str
+    unicode = str
 
 # ===========================================================================
 # Python 2 versions

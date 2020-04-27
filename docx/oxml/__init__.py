@@ -23,10 +23,16 @@ def remove_hyperlink_tags(xml):
         full hyperlink functionality has not been implemented yet """
     # Import python's regular expression module
     import re
-    # Remove hyperlink close tags
-    xml = xml.replace(b"</w:hyperlink>", b"")
-    # Remove hyperlink open tags
-    xml = re.sub(b'<w:hyperlink[^>]*>', b"", xml)
+    if isinstance(xml, str):
+        # Remove hyperlink close tags
+        xml = xml.replace("</w:hyperlink>", "")
+        # Remove hyperlink open tags
+        xml = re.sub('<w:hyperlink[^>]*>', "", xml)
+    else:
+        # Remove hyperlink close tags
+        xml = xml.replace(b"</w:hyperlink>", b"")
+        # Remove hyperlink open tags
+        xml = re.sub(b'<w:hyperlink[^>]*>', b"", xml)
     # Return the edited XML
     return xml
 
